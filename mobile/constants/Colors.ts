@@ -1,19 +1,36 @@
-const tintColorLight = "#2f95dc";
-const tintColorDark = "#fff";
-
 export default {
-  light: {
-    text: "#000",
-    background: "#fff",
-    tint: tintColorLight,
-    tabIconDefault: "#ccc",
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: "#fff",
-    background: "#000",
-    tint: tintColorLight,
-    tabIconDefault: "#ccc",
-    tabIconSelected: tintColorLight,
-  },
+  PRIMARY: "#F28322",
+  GRAY_1: "#57606F",
+  GRAY_2: "#747D8C",
+  GRAY_3: "#A4B0BE",
+  BLUE: "#3781FC",
+  LIGHT_PURPLE: "#6678FF",
+  LIGHT_YELLOW: "#FFFBC8",
+  YELLOW: "#FFBA00",
+  LIGHT_GREEN: "#DDFFF0",
+  GREEN: "#00C569",
+  DARK_GREEN: "#369683",
+  PINK: "#AB2D5E",
+  LIGHT_RED: "#FFDAE8",
+  RED: "#F25050",
+
+  DEFAULT_TEXT: "#2E3034",
+  BACKGROUND: "#FFFFFF",
+  LINE_DIVIDER: "#D4D4D4",
+  INPUT_BACK_COLOR: "#F9F9F9",
+  INPUT_BORDER_COLOR: "#F0F0F0",
+  INPUT_PLACEHOLDER_COLOR: "#999999",
+
+  DARK_DEFAULT_TEXT: "#F6F6F6",
+  DARK_BACKGROUND: "#1C1C1E",
+  DARK_LINE_DIVIDER: "#393B4D",
+  DARK_INPUT_BACK_COLOR: "#515151",
+  DARK_INPUT_PLACEHOLDER_COLOR: "#8E8E93",
 };
+
+// PALETA DE CORES
+// #F2921D
+// #F28322
+// #F26938
+// #F25050
+// #0D0D0D

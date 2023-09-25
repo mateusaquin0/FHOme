@@ -1,39 +1,66 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import { Text, View } from "../../components/Themed";
-import Colors from "../../constants/Colors";
+import {
+  DividerThemed,
+  FlexView,
+  InputThemed,
+  TextThemed,
+  ViewThemed,
+} from "../../components/Themed";
 import { Button, useThemeMode } from "@rneui/themed";
+import Colors from "../../constants/Colors";
 
 export default function TabOneScreen() {
   const { mode, setMode } = useThemeMode();
 
   return (
-    <View style={styles(mode).container}>
-      <Text style={styles(mode).title}>Tab One</Text>
-      <View
-        style={styles(mode).separator}
-        darkColor="#eee"
-        lightColor="rgba(255,255,255,0.1)"
-      />
+    <ViewThemed style={styles(mode).container}>
+      <TextThemed style={styles(mode).title}>Examples</TextThemed>
+      <DividerThemed />
+      <FlexView gap={4}>
+        <Button> Primary Button</Button>
+        <Button type="outline">Outline Button</Button>
+        <Button type="clear">Clear Button</Button>
+      </FlexView>
+      <DividerThemed />
+      <FlexView gap={4}>
+        <Button color="success" titleStyle={{ color: Colors.GREEN }}>
+          Success Button
+        </Button>
+        <Button color="warning" titleStyle={{ color: Colors.YELLOW }}>
+          Warning Button
+        </Button>
+        <Button color="error" titleStyle={{ color: Colors.RED }}>
+          Secondary Button
+        </Button>
+      </FlexView>
+      <DividerThemed />
+      <FlexView width="100%" justifyContent="space-around">
+        <InputThemed placeholder="Basic Input" width="40%" />
+        <InputThemed
+          placeholder="Password Input"
+          secureTextEntry
+          width="40%"
+        />
+      </FlexView>
+      <DividerThemed />
       <Button onPress={() => setMode(mode === "light" ? "dark" : "light")}>
         Change Theme
       </Button>
-    </View>
+    </ViewThemed>
   );
 }
 
 const styles = (mode: "dark" | "light") =>
   StyleSheet.create({
     container: {
-      flex: 1,
+      height: "100%",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: Colors[mode ?? "light"].background,
     },
     title: {
       fontSize: 20,
       fontWeight: "bold",
-      color: Colors[mode ?? "light"].text,
     },
     separator: {
       marginVertical: 30,

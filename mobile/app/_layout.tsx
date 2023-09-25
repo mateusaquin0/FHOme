@@ -30,8 +30,6 @@ export default function RootLayout() {
   });
 
   const { setMode } = useThemeMode();
-  // setMode('dark');
-
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
