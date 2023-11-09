@@ -1,8 +1,8 @@
 # FHOme
 
 [Tutorial]([https://link-url-here.org](https://www.youtube.com/playlist?list=PLAP1EsuzlGNJYvsJzRE8owOzWEhIuZe3i)https://www.youtube.com/playlist?list=PLAP1EsuzlGNJYvsJzRE8owOzWEhIuZe3i) utilizado como base
-- [ ] Video 1
-- [ ] Video 2
+- [x] Video 1
+- [x] Video 2
 - [ ] Video 3
 - [ ] Video 4
 - [ ] Video 5
