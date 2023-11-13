@@ -97,7 +97,7 @@ export function SignInScreen() {
         </Button>
       </View>
 
-      <View style={{alignItems: 'center', marginVertical: 20}}>
+      {/* <View style={{alignItems: 'center', marginVertical: 20}}>
         <Text style={{fontSize: 20, fontWeight: 'bold'}}>OU</Text>
       </View>
 
@@ -109,7 +109,7 @@ export function SignInScreen() {
           onPress={() => {}}
           style={styledComponents.socialIcon}
         />
-      </View>
+      </View> */}
 
       <View style={{flex: 1, margin: 20, justifyContent: 'flex-end'}}>
         <View
