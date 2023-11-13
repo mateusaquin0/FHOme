@@ -8,6 +8,7 @@ export const colors = {
   gray4: '#bdc6cf',
   gray5: '#e1e8ee',
   orange: '#ff8c52',
+  green: '#4bb543',
   cardComment: '#86939e',
   cardBackground: '#ffffff',
   statusBar: '#ff8c52',
