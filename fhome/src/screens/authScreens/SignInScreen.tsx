@@ -1,4 +1,4 @@
-import {StyleSheet, View, TextInput} from 'react-native';
+import {StyleSheet, View, TextInput, Modal} from 'react-native';
 import {Header} from '../../components/Header';
 import {Button, Icon, Text, SocialIcon} from '@rneui/themed';
 import {colors, styledComponents} from '../../global/styles';
@@ -6,12 +6,15 @@ import {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import {auth} from '../../services/firebaseConfig';
+import {ForgotPasswordModal} from '../../components/ForgotPasswordModal';
 
 export function SignInScreen() {
   const [seePassword, setSeePassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorLogin, setErrorLogin] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
 
   const {navigate, goBack, reset} = useNavigation();
 
@@ -67,12 +70,7 @@ export function SignInScreen() {
         </View>
 
         {errorLogin && (
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+          <View style={styles.errorContainer}>
             <Icon
               type="material-community"
               name="alert"
@@ -94,7 +92,9 @@ export function SignInScreen() {
       </View>
 
       <View style={{alignItems: 'center'}}>
-        <Text style={styles.forgotPassword}>Esqueceu sua senha?</Text>
+        <Button type="clear" onPress={() => setShowModal(true)}>
+          <Text style={styles.forgotPassword}>Esqueceu sua senha?</Text>
+        </Button>
       </View>
 
       <View style={{alignItems: 'center', marginVertical: 20}}>
@@ -128,6 +128,13 @@ export function SignInScreen() {
           />
         </View>
       </View>
+
+      {showModal && (
+        <ForgotPasswordModal
+          isVisible={showModal}
+          handleClose={() => setShowModal(false)}
+        />
+      )}
     </View>
   );
 }
@@ -143,6 +150,13 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     alignItems: 'center',
     marginVertical: 40,
+  },
+
+  errorContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
   },
 
   inputContainer: {
