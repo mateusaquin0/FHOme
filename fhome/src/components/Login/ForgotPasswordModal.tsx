@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors, styledComponents} from '../global/styles';
+import {colors, styledComponents} from '../../global/styles';
 import {sendPasswordResetEmail} from 'firebase/auth';
-import {auth} from '../services/firebaseConfig';
+import {auth} from '../../services/firebaseConfig';
 
 interface ForgotPasswordModalProps {
   isVisible: boolean;
@@ -39,7 +39,6 @@ export function ForgotPasswordModal({
         const errorCode = error.code;
         const errorMessage = error.message;
         setErrorEmail(true);
-        console.log(errorCode);
       })
       .finally(() => {
         setIsloading(false);
@@ -50,12 +49,15 @@ export function ForgotPasswordModal({
     <Modal visible={isVisible} transparent onRequestClose={handleClose}>
       <TouchableOpacity
         style={{flex: 2, backgroundColor: '#00000050'}}
-        onPress={handleClose}></TouchableOpacity>
+        onPress={handleClose}
+        activeOpacity={0.9}
+      />
       <View style={{backgroundColor: '#00000050'}}>
         <View style={styles.modalContainer}>
           <Text style={styles.title}>Redefinir senha</Text>
           <Text style={styles.text}>Qual o seu email?</Text>
           <TextInput
+            placeholderTextColor={colors.gray3}
             style={styles.emailInput}
             placeholder="E-mail"
             value={email}
@@ -130,6 +132,7 @@ const styles = StyleSheet.create({
   },
 
   emailInput: {
+    color: colors.gray1,
     borderWidth: 1,
     borderColor: colors.gray3,
     borderRadius: 12,

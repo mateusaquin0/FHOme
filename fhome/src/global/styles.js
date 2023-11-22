@@ -13,6 +13,7 @@ export const colors = {
   cardBackground: '#ffffff',
   statusBar: '#ff8c52',
   headerText: '#ffffff',
+  alert: '#f02c2c',
 };
 
 export const parameters = {
@@ -47,8 +48,6 @@ export const styledComponents = StyleSheet.create({
     color: '#ffffff',
     fontSize: 20,
     fontWeight: 'bold',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: -3,
   },
 
@@ -56,8 +55,6 @@ export const styledComponents = StyleSheet.create({
     color: '#ff8c52',
     fontSize: 20,
     fontWeight: 'bold',
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: -3,
   },
 
@@ -66,5 +63,22 @@ export const styledComponents = StyleSheet.create({
     height: 50,
     width: '100%',
     margin: 0,
+  },
+});
+
+export const pickerStyles = StyleSheet.create({
+  inputAndroid: {
+    borderWidth: 1,
+    borderColor: colors.gray3,
+    borderRadius: 12,
+    paddingHorizontal: 10,
+    color: colors.gray1,
+  },
+  viewContainer: {
+    borderWidth: 1,
+    borderColor: colors.gray3,
+    borderRadius: 12,
+    paddingHorizontal: 10,
+    color: colors.alert,
   },
 });

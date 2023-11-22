@@ -1,17 +1,14 @@
 import {StyleSheet, View, TextInput} from 'react-native';
-import {Header} from '../../components/Header';
-import {Button, Icon, Text} from '@rneui/themed';
+import {Header} from '../../components/shared/Header';
+import {Button, CheckBox, Icon, Text} from '@rneui/themed';
 import {colors, styledComponents} from '../../global/styles';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  onAuthStateChanged,
-} from 'firebase/auth';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
 import {sendVerificationEmail} from '../../services/sendVerificationEmail';
 import {updateUserProfile} from '../../services/updateProfile';
 import {auth} from '../../services/firebaseConfig';
+import {addNewUser} from '../../services/createNewUser';
 
 enum EnumPasswordError {
   MinLength = 'Senha deve ter mais de 6 caracteres',
@@ -24,6 +21,7 @@ enum EnumFireBaseError {
 }
 
 export function NewAccountScreen() {
+  const [isSelected, setSelection] = useState(false);
   const [seePassword, setSeePassword] = useState(false);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -50,6 +48,7 @@ export function NewAccountScreen() {
         .then(() => {
           updateUserProfile({name: nome}).then(() => {
             sendVerificationEmail();
+            addNewUser(auth.currentUser!, isSelected);
             reset({
               index: 0,
               routes: [{name: 'Welcome'}],
@@ -60,6 +59,7 @@ export function NewAccountScreen() {
           const errorCode = error.code;
           const errorMessage = error.message;
           verifyFirebaseError(errorCode);
+          console.error(error);
           setIsLoading(false);
         });
       setIsLoading(true);
@@ -115,6 +115,7 @@ export function NewAccountScreen() {
       <View style={styles.inputContainer}>
         <View>
           <TextInput
+            placeholderTextColor={colors.gray3}
             style={styles.emailInput}
             placeholder="Nome"
             value={nome}
@@ -123,6 +124,7 @@ export function NewAccountScreen() {
         </View>
         <View>
           <TextInput
+            placeholderTextColor={colors.gray3}
             style={styles.emailInput}
             placeholder="E-mail"
             value={email}
@@ -131,6 +133,7 @@ export function NewAccountScreen() {
         </View>
         <View style={styles.passwordSection}>
           <TextInput
+            placeholderTextColor={colors.gray3}
             style={styles.passwordInput}
             placeholder="Senha"
             secureTextEntry={!seePassword}
@@ -146,6 +149,7 @@ export function NewAccountScreen() {
         </View>
         <View style={styles.passwordSection}>
           <TextInput
+            placeholderTextColor={colors.gray3}
             style={styles.passwordInput}
             placeholder="Confirmar senha"
             secureTextEntry={!seePassword}
@@ -159,59 +163,54 @@ export function NewAccountScreen() {
             onPress={() => setSeePassword(previous => !previous)}
           />
         </View>
+        <View>
+          <CheckBox
+            title="Sou um funcionário"
+            checked={isSelected}
+            onPress={() => setSelection(prev => !prev)}
+            iconType="material-community"
+            checkedIcon="checkbox-outline"
+            uncheckedIcon={'checkbox-blank-outline'}
+            checkedColor={colors.orange}
+            containerStyle={{backgroundColor: 'transparent'}}
+            textStyle={styles.description}
+          />
+        </View>
       </View>
 
       {fieldsError && (
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
+        <View style={styles.errorContainer}>
           <Icon
             type="material-community"
             name="alert"
-            color={colors.gray3}
+            color={colors.alert}
             size={18}
           />
-          <Text style={styles.description}>Preencha todos os campos</Text>
+          <Text style={styles.alert}>Preencha todos os campos</Text>
         </View>
       )}
 
       {!fieldsError && !!passwordError && (
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
+        <View style={styles.errorContainer}>
           <Icon
             type="material-community"
             name="alert"
-            color={colors.gray3}
+            color={colors.alert}
             size={18}
           />
-          <Text style={styles.description}>{passwordError}</Text>
+          <Text style={styles.alert}>{passwordError}</Text>
         </View>
       )}
 
       {!!firebaseError && (
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
+        <View style={styles.errorContainer}>
           <Icon
             type="material-community"
             name="alert"
-            color={colors.gray3}
+            color={colors.alert}
             size={18}
           />
-          <Text style={styles.description}>{firebaseError}</Text>
+          <Text style={styles.alert}>{firebaseError}</Text>
         </View>
       )}
 
@@ -247,9 +246,15 @@ const styles = StyleSheet.create({
 
   description: {
     color: colors.gray3,
+    fontWeight: 'normal',
+  },
+
+  alert: {
+    color: colors.alert,
   },
 
   emailInput: {
+    color: colors.gray1,
     borderWidth: 1,
     borderColor: colors.gray3,
     marginHorizontal: 20,
@@ -258,6 +263,7 @@ const styles = StyleSheet.create({
   },
 
   passwordInput: {
+    color: colors.gray1,
     flex: 1,
   },
 
@@ -276,5 +282,13 @@ const styles = StyleSheet.create({
   forgotPassword: {
     color: colors.gray3,
     textDecorationLine: 'underline',
+  },
+
+  errorContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 5,
+    marginTop: 20,
   },
 });

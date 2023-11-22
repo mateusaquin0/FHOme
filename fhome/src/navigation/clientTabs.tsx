@@ -1,11 +1,17 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeScreen} from '../screens/customerScreens/HomeScreen';
 import {MyOrdersScreen} from '../screens/customerScreens/MyOrdersScreen';
-import {MyAccountScreen} from '../screens/customerScreens/MyAccountScree';
+import {MyAccountScreen} from '../screens/customerScreens/MyAccountScreen';
 import {Icon} from '@rneui/themed';
 import {colors} from '../global/styles';
 
-const Tabs = createBottomTabNavigator();
+export type TabStackParamList = {
+  CustomerHome: undefined;
+  CustomerOrders: {newOrder: boolean};
+  CustomerAccount: undefined;
+};
+
+const Tabs = createBottomTabNavigator<TabStackParamList>();
 
 export function ClientTabs() {
   return (
@@ -18,6 +24,7 @@ export function ClientTabs() {
         name="CustomerHome"
         component={HomeScreen}
         options={{
+          headerShown: false,
           tabBarLabel: 'Início',
           tabBarIcon: ({color, size, focused}) => (
             <Icon
@@ -33,6 +40,7 @@ export function ClientTabs() {
         name="CustomerOrders"
         component={MyOrdersScreen}
         options={{
+          headerShown: false,
           tabBarLabel: 'Pedidos',
           tabBarIcon: ({color, size, focused}) => (
             <Icon
@@ -43,12 +51,14 @@ export function ClientTabs() {
             />
           ),
         }}
+        initialParams={{newOrder: false}}
       />
 
       <Tabs.Screen
         name="CustomerAccount"
         component={MyAccountScreen}
         options={{
+          headerShown: false,
           tabBarLabel: 'Perfil',
           tabBarIcon: ({color, size, focused}) => (
             <Icon

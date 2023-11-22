@@ -1,7 +1,7 @@
 import {StyleSheet, View} from 'react-native';
 import {Icon, Text} from '@rneui/themed';
 
-import {colors, parameters} from '../global/styles';
+import {colors, parameters} from '../../global/styles';
 
 interface HeaderProps {
   title: string;

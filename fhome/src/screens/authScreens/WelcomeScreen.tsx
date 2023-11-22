@@ -1,10 +1,11 @@
 import {Button, Text} from '@rneui/themed';
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import {colors, styledComponents} from '../../global/styles';
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useState} from 'react';
 import {onAuthStateChanged} from 'firebase/auth';
 import {auth} from '../../services/firebaseConfig';
+import {LoadingScreen} from '../../components/shared/LoadingScreen';
 
 export function WelcomeScreen() {
   const {navigate, reset} = useNavigation();
@@ -22,18 +23,21 @@ export function WelcomeScreen() {
     });
   }, []);
 
-  if (isLoading)
-    return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Button type="clear" loading size="lg" color={colors.buttons} />
-      </View>
-    );
+  if (isLoading) return <LoadingScreen />;
 
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>RESERVE SEUS PEDIDOS</Text>
-        <Text style={styles.text}>EM ALGUNS CLIQUES</Text>
+        <Text style={styles.text}>O APP PERFEITO</Text>
+        <Text style={styles.text}>PARA QUEM TEM</Text>
+      </View>
+
+      <View style={{flex: 1}}>
+        <Image
+          source={require('../../assets/images/logo_splash.png')}
+          style={styles.imageContainer}
+          resizeMode="contain"
+        />
       </View>
 
       <View style={{margin: 20, gap: 20}}>
@@ -66,9 +70,13 @@ const styles = StyleSheet.create({
   },
 
   textContainer: {
-    flex: 3,
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingTop: 40,
+  },
+
+  imageContainer: {
+    width: '100%',
+    height: '100%',
   },
 });
